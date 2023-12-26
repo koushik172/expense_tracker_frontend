@@ -34,7 +34,7 @@ export default function BuyPremium() {
 			return;
 		}
 
-		const result = await axios.post("http://localhost:8080/orders/new-order", {}, { headers: { Authorization: localStorage.getItem("token") } });
+		const result = await axios.post(`http://${import.meta.env.VITE_SERVER_IP}/orders/new-order`, {}, { headers: { Authorization: localStorage.getItem("token") } });
 
 		if (!result) {
 			alert("Server error. Are you online?");
@@ -59,7 +59,7 @@ export default function BuyPremium() {
 					razorpaySignature: response.razorpay_signature,
 				};
 
-				const result = await axios.post("http://localhost:8080/orders/payment/success", data, {
+				const result = await axios.post(`http://${import.meta.env.VITE_SERVER_IP}/orders/payment/success`, data, {
 					headers: { Authorization: localStorage.getItem("token") },
 				});
 				alert(result.data.msg);
@@ -85,7 +85,7 @@ export default function BuyPremium() {
 	}
 
 	async function isPremium() {
-		let res = await axios.get("http://localhost:8080/user/is-premium", { headers: { Authorization: localStorage.getItem("token") } });
+		let res = await axios.get(`http://${import.meta.env.VITE_SERVER_IP}/user/is-premium`, { headers: { Authorization: localStorage.getItem("token") } });
 		localStorage.setItem("premium", res.data);
 		setPremium(res.data);
 	}

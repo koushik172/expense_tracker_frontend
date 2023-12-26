@@ -26,7 +26,7 @@ export default function ResetPasswordPage() {
 		}
 
 		try {
-			await axios.post(`http://localhost:8080/user/reset-password/${token}`, formData);
+			await axios.post(`http://${import.meta.env.VITE_SERVER_IP}/user/reset-password/${token}`, formData);
 		} catch (error) {
 			setFormMessage(error.response.data);
 			return;

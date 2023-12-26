@@ -24,7 +24,7 @@ export default function ReportList() {
 
 	async function getReports() {
 		try {
-			let res = await axios.get(`http://localhost:8080/user/report/get-reports`, { headers: { Authorization: localStorage.getItem("token") } });
+			let res = await axios.get(`http://${import.meta.env.VITE_SERVER_IP}/user/report/get-reports`, { headers: { Authorization: localStorage.getItem("token") } });
 			setReports(() => {
 				format(new Date(), "dd/mm/yyyy");
 				return res.data.reports.filter((item) => {
@@ -64,7 +64,7 @@ export default function ReportList() {
 
 	async function deleteReport(e) {
 		await axios.post(
-			"http://localhost:8080/user/report/delete-report",
+			`http://${import.meta.env.VITE_SERVER_IP}/user/report/delete-report`,
 			{ filename: e.target.name },
 			{
 				headers: { Authorization: localStorage.getItem("token") },
@@ -89,7 +89,7 @@ export default function ReportList() {
 	async function createReport() {
 		if (localStorage.getItem("premium") === "false") return alert("Reqires premium");
 		try {
-			let response = await axios.get("http://localhost:8080/user/report/create-report", {
+			let response = await axios.get(`http://${import.meta.env.VITE_SERVER_IP}/user/report/create-report`, {
 				headers: { Authorization: localStorage.getItem("token") },
 			});
 			window.open(response.data, "_blank");

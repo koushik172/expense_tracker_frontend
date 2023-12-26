@@ -34,7 +34,7 @@ export default function SignupPage() {
 		}
 
 		try {
-			await axios.post("http://localhost:8080/user/signup", formData);
+			await axios.post(`http://${import.meta.env.VITE_SERVER_IP}/user/signup`, formData);
 			setFromStatus("Registered Successfully");
 			navigate("/login");
 		} catch (err) {
@@ -56,9 +56,7 @@ export default function SignupPage() {
 	return (
 		<div className="h-screen flex justify-center items-center bg-[#3081D0]">
 			<form className="flex flex-col text-xl items-center gap-4 bg-[#dfdd61] p-4 rounded-md  text-[#33689e]">
-				<p className="text-2xl font-bold underline w-full flex justify-center">
-					NEW USER
-				</p>
+				<p className="text-2xl font-bold underline w-full flex justify-center">NEW USER</p>
 				<div className="flex flex-col gap-1">
 					<label htmlFor="name">Username</label>
 					<input
@@ -92,18 +90,9 @@ export default function SignupPage() {
 						onChange={handleChange}
 					/>
 				</div>
-				{formError && (
-					<p className="flex justify-center text-slate-600 underline">
-						{formError}
-					</p>
-				)}
+				{formError && <p className="flex justify-center text-slate-600 underline">{formError}</p>}
 				<div className="bg-sky-400 hover:bg-sky-300 p-2 rounded-md">
-					<input
-						type="submit"
-						value="Sign Up"
-						ref={submitRef}
-						onClick={handleSubmit}
-					/>
+					<input type="submit" value="Sign Up" ref={submitRef} onClick={handleSubmit} />
 				</div>
 				<p>
 					Already have an account?{"  "}

@@ -24,7 +24,7 @@ export default function ExpenseList() {
 	const [totalExpense, setTotalExpense] = useState("");
 
 	// PAGINATION
-	const [rows, setRows] = useState(localStorage.getItem("rows"));
+	const [rows, setRows] = useState(localStorage.getItem("rows") ? localStorage.getItem("rows") : 10);
 	const [page, setPage] = useState(1);
 	const [lastPage, setLastPage] = useState("");
 
@@ -54,7 +54,7 @@ export default function ExpenseList() {
 
 	async function getExpenses() {
 		try {
-			let res = await axios.get(`http://localhost:8080/expenses/get-expenses/${rows}/${page}`, {
+			let res = await axios.get(`http://${import.meta.env.VITE_SERVER_IP}/expenses/get-expenses/${rows}/${page}`, {
 				headers: { Authorization: localStorage.getItem("token") },
 			});
 			setLastPage(Math.ceil(res.data.count / rows));
@@ -101,7 +101,7 @@ export default function ExpenseList() {
 		let li = e.target.closest("li");
 		let amount = li.querySelectorAll("p")[2].textContent;
 		try {
-			await axios.delete(`http://localhost:8080/expenses/delete-expense/${id}`, {
+			await axios.delete(`http://${import.meta.env.VITE_SERVER_IP}/expenses/delete-expense/${id}`, {
 				headers: { Authorization: localStorage.getItem("token") },
 			});
 			li.remove();
@@ -130,9 +130,9 @@ export default function ExpenseList() {
 	}
 
 	useEffect(() => {
-		getExpenses();
 		localStorage.setItem("sort", "All");
 		localStorage.setItem("rows", 10);
+		getExpenses();
 	}, []);
 
 	useEffect(() => {

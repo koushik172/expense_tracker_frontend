@@ -28,7 +28,7 @@ export default function ExpenseForm() {
 		}
 
 		try {
-			await axios.post(`http://localhost:8080/expenses/add-expense/`, formData, {
+			await axios.post(`http://${import.meta.env.VITE_SERVER_IP}/expenses/add-expense/`, formData, {
 				headers: { Authorization: localStorage.getItem("token") },
 			});
 			setFromStatus("New Expense Added");

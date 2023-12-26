@@ -8,7 +8,7 @@ export default function Leaderboard() {
 
 	async function getLeaderboard() {
 		await axios
-			.get("http://localhost:8080/user/leaderboard", { headers: { Authorization: localStorage.getItem("token") } })
+			.get(`http://${import.meta.env.VITE_SERVER_IP}/user/leaderboard`, { headers: { Authorization: localStorage.getItem("token") } })
 			.then((res) => {
 				setleaderboard(res.data);
 			})

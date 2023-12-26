@@ -33,7 +33,7 @@ export default function LoginForm() {
 		}
 
 		try {
-			let res = await axios.post("http://localhost:8080/user/login", formData);
+			let res = await axios.post(`http://${import.meta.env.VITE_SERVER_IP}/user/login`, formData);
 			localStorage.setItem("token", res.data.token);
 			localStorage.setItem("username", res.data.username);
 			localStorage.setItem("premium", res.data.premium);

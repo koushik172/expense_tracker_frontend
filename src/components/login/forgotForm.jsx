@@ -29,7 +29,7 @@ export default function ForgotForm() {
 		}
 
 		try {
-			await axios.post("http://localhost:8080/user/forgot-password", { email: formData.email });
+			await axios.post(`http://${import.meta.env.VITE_SERVER_IP}/user/forgot-password`, { email: formData.email });
 			setFormMessage("Password reset link sent.");
 		} catch (err) {
 			console.log(err);
